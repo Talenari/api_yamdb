@@ -1,4 +1,5 @@
 from django.core.mail import send_mail
+from django.contrib.auth.hashers import make_password
 from rest_framework.serializers import ModelSerializer
 
 from .models import User
@@ -15,10 +16,10 @@ class UserSignupSerializer(ModelSerializer):
             'Код подтверждения',
             f'Ваш код подтверждения {password}.',
             'from@example.com',
-            ['to@example.com'],
+            [f'{validated_data.get("email")}'],
         )
-        return User.objects.create(
-            username=validated_data.get('username'),
-            email=validated_data.get('email'),
-            password=password
+        return User.objects.get_or_create(
+            username=self.data.get('username'),
+            email=self.data.get('email'),
+            password=make_password(password)
         )
