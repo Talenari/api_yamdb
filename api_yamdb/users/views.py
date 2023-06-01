@@ -35,12 +35,12 @@ def user_get_token(request):
             {"verification_code": "Поле не указано"},
             status=status.HTTP_400_BAD_REQUEST
         )
-    if username == '' or None:
+    if not username:
         return Response(
             {"username": "Поле пустое"},
             status=status.HTTP_400_BAD_REQUEST
         )
-    if password == '' or None:
+    if not password:
         return Response(
             {"password": "Поле пустое"},
             status=status.HTTP_400_BAD_REQUEST
