@@ -19,7 +19,7 @@ class UserSignupView(CreateAPIView):
 
 
 @api_view(['POST'])
-def UserGetTokenView(request):
+def user_get_token(request):
     '''Функция создания и получения токена по username и verification_code'''
     try:
         username = request.data['username']
@@ -45,7 +45,6 @@ def UserGetTokenView(request):
             {"password": "Поле пустое"},
             status=status.HTTP_400_BAD_REQUEST
         )
-
     user = get_object_or_404(User, username=username)
     if user.check_password(password):
         token = RefreshToken.for_user(user)

@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import UserSignupView, UserGetTokenView
+from .views import UserSignupView, user_get_token
 
 
 urlpatterns = [
     path('auth/signup/', UserSignupView.as_view()),
-    path('auth/token/', UserGetTokenView),
+    path('auth/token/', user_get_token),
 ]
