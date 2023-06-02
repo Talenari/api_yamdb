@@ -1,5 +1,7 @@
 from django.db import models
 
+from reviews.constants import STRING_LENGTH
+
 
 class Category(models.Model):
     """Модель для Categories."""
@@ -11,10 +13,10 @@ class Category(models.Model):
     )
 
     class Meta:
-        pass
+        ordering = ('-name',)
 
     def __str__(self):
-        return self.name
+        return self.name[:STRING_LENGTH]
 
 
 class Genre(models.Model):
@@ -27,10 +29,10 @@ class Genre(models.Model):
     )
 
     class Meta:
-        pass
+        ordering = ('-name',)
 
     def __str__(self):
-        return self.name
+        return self.name[:STRING_LENGTH]
 
 
 class Title(models.Model):
@@ -43,14 +45,16 @@ class Title(models.Model):
     category = models.ForeignKey(
         Category,
         null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
+        related_name='category'
     )
     genre = models.ManyToManyField(
-        Genre
+        Genre,
+        related_name='title'
     )
 
     class Meta:
-        pass
+        ordering = ('-name',)
 
     def __str__(self):
-        return self.name
+        return self.name[:STRING_LENGTH]
