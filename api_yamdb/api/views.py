@@ -42,6 +42,7 @@ class GenreViewSet(GenericMixinsSet):
 class TitleViewSet(ModelViewSet):
     """Вьюсет для Titles."""
     filterset_class = FilterTitles
+    filter_backends = (DjangoFilterBackend,)
     pagination_class = LimitOffsetPagination
     permission_classes = (
         AdminPermissions, permissions.IsAuthenticatedOrReadOnly,

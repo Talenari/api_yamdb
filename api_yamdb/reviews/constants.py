@@ -1,3 +1,3 @@
 
 # for reviews > models.py
-STRING_LENGTH = 50
+STRING_LENGTH = 15
