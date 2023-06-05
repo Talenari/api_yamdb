@@ -5,12 +5,12 @@ from django.db import models
 User = get_user_model()
 
 
-class Review(models.Model):
-    # title = models.ForeignKey(
-    #     Title,
-    #     on_delete=models.CASCADE,
-    #     related_name='reviews'
-    # )
+class Reviews(models.Model):
+    title = models.ForeignKey(
+        Title,
+        on_delete=models.CASCADE,
+        related_name='reviews'
+    )
     text = models.CharField(max_length=255)
     author = models.ForeignKey(
         User,
@@ -33,7 +33,7 @@ class Review(models.Model):
 
 class Comments(models.Model):
     review = models.ForeignKey(
-        Review,
+        Reviews,
         on_delete=models.CASCADE,
         related_name='comments',
     )
