@@ -23,3 +23,29 @@ class UserSignupSerializer(ModelSerializer):
             email=self.data.get('email'),
             password=make_password(password)
         )
+
+
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'email',
+            'bio',
+            'first_name',
+            'last_name',
+            'role'
+        ]
+
+
+class UserMeSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'email',
+            'bio',
+            'first_name',
+            'last_name',
+        ]
+        read_only_fields = ['username', 'email']
