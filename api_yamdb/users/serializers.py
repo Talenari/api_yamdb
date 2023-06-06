@@ -1,5 +1,5 @@
-from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
+from django.core.mail import send_mail
 from rest_framework.serializers import ModelSerializer
 
 from .models import User
