@@ -2,15 +2,16 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework import viewsets
 from rest_framework.viewsets import ModelViewSet
 
 from api.filters import FilterTitles
 from api.mixins import GenericMixinsSet
 from api.serializers import (
-    CategorySerializer, GenreSerializer, GetTitleSerializer, TitleSerializer
+    CategorySerializer, CommentSerializer, GenreSerializer, GetTitleSerializer, ReviewSerializer, TitleSerializer
 )
 from api.permissions import AdminPermissions
-from reviews.models import Category, Genre, Title
+from reviews.models import Category, Comments, Genre, Reviews, Title
 
 
 class CategoryViewSet(GenericMixinsSet):
@@ -53,3 +54,27 @@ class TitleViewSet(ModelViewSet):
         if self.request.method in ('POST', 'PATCH'):
             return TitleSerializer
         return GetTitleSerializer
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    """Вьюсет для Reviews."""
+    serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        title_id = self.kwargs.get('title_id')
+        return Review.objects.filter(title=title_id)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    """Вьюсет для Comments."""
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        review_id = self.kwargs.get('review_id')
+        return Comment.objects.filter(review=review_id)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
