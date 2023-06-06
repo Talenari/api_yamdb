@@ -23,6 +23,7 @@ class UserSignupView(CreateAPIView):
 
 
 class UserModelViewSet(ModelViewSet):
+    """Просмотр и изменение профиля пользователей администратором."""
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'username'
@@ -31,6 +32,7 @@ class UserModelViewSet(ModelViewSet):
 
 
 class UserMeModelView(APIView):
+    """Просмотр и патч своего профиля пользователем."""
     permission_classes = permissions.IsAuthenticated
 
     def get(self, request):
@@ -49,7 +51,7 @@ class UserMeModelView(APIView):
 
 @api_view(['POST'])
 def user_get_token(request):
-    '''Функция создания и получения токена по username и confirmation_code'''
+    """Функция создания и получения токена по username и confirmation_code."""
     try:
         username = request.data['username']
     except KeyError:
@@ -71,7 +73,7 @@ def user_get_token(request):
         )
     if not password:
         return Response(
-            {"password": "Поле пустое"},
+            {"confirmation_code": "Поле пустое"},
             status=status.HTTP_400_BAD_REQUEST
         )
     user = get_object_or_404(User, username=username)

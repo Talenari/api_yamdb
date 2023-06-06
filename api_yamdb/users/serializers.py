@@ -6,6 +6,7 @@ from .models import User
 
 
 class UserSignupSerializer(ModelSerializer):
+    """Сериализатор создания пользователя."""
     class Meta:
         model = User
         fields = ['username', 'email']
@@ -26,6 +27,7 @@ class UserSignupSerializer(ModelSerializer):
 
 
 class UserSerializer(ModelSerializer):
+    """Сериализатор просмотра пользователя админом."""
     class Meta:
         model = User
         fields = [
@@ -39,6 +41,7 @@ class UserSerializer(ModelSerializer):
 
 
 class UserMeSerializer(ModelSerializer):
+    """Сериализатор просмотра своего профиля пользователем."""
     class Meta:
         model = User
         fields = [
