@@ -2,9 +2,9 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-User = get_user_model()
-
 from reviews.constants import STRING_LENGTH
+
+User = get_user_model()
 
 
 class Category(models.Model):
@@ -64,7 +64,7 @@ class Title(models.Model):
         return self.name[:STRING_LENGTH]
 
 
-class Reviews(models.Model):
+class Review(models.Model):
     """Модель для Reviews."""
     title = models.ForeignKey(
         Title,
@@ -91,10 +91,10 @@ class Reviews(models.Model):
         return self.text
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     """Модель для Comments."""
     review = models.ForeignKey(
-        Reviews,
+        Review,
         on_delete=models.CASCADE,
         related_name='comments',
     )
