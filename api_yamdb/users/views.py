@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status
-from rest_framework.decorators import api_view
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -49,7 +48,7 @@ class UserMeModelView(APIView):
         return Response(serializer.data)
 
 
-class UserToken(APIView):
+class UserTokenView(APIView):
     """Функция создания и получения токена по username и confirmation_code."""
     permission_classes = (permissions.AllowAny,)
 
