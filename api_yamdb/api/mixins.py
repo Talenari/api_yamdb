@@ -4,9 +4,8 @@ from rest_framework.mixins import (
 from rest_framework.viewsets import GenericViewSet
 
 
-class GenericMixinsSet(GenericViewSet,
-                       CreateModelMixin,
-                       DestroyModelMixin,
-                       ListModelMixin):
+class GenericMixinsSet(
+    GenericViewSet, CreateModelMixin,
+        DestroyModelMixin, ListModelMixin):
     """Создание, чтение, запись."""
     pass
