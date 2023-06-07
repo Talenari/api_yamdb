@@ -4,7 +4,7 @@ from rest_framework.routers import SimpleRouter
 from .views import (UserMeModelView,
                     UserModelViewSet,
                     UserSignupView,
-                    user_get_token)
+                    UserTokenView)
 
 
 router_users_v1 = SimpleRouter()
@@ -12,7 +12,7 @@ router_users_v1.register('users', UserModelViewSet)
 
 urlpatterns = [
     path('auth/signup/', UserSignupView.as_view()),
-    path('auth/token/', user_get_token),
+    path('auth/token/', UserTokenView.as_view()),
     path('users/me/', UserMeModelView.as_view()),
     path('', include(router_users_v1.urls)),
 ]
