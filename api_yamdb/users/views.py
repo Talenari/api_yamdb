@@ -17,9 +17,9 @@ class UserSignupView(CreateAPIView):
     Пароль автоматически создается как код подтверждения, отсылаемый
     на почту.
     '''
-    permission_classes = permissions.AllowAny
     queryset = User.objects.all()
     serializer_class = UserSignupSerializer
+    permission_classes = (permissions.AllowAny,)
 
 
 class UserModelViewSet(ModelViewSet):
@@ -28,12 +28,12 @@ class UserModelViewSet(ModelViewSet):
     serializer_class = UserSerializer
     lookup_field = 'username'
     pagination_class = UserPagination
-    permission_classes = permissions.IsAdminUser
+    permission_classes = (permissions.IsAdminUser,)
 
 
 class UserMeModelView(APIView):
     """Просмотр и патч своего профиля пользователем."""
-    permission_classes = permissions.IsAuthenticated
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
         user = get_object_or_404(User, username=request.user.username)
