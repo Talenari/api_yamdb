@@ -1,11 +1,12 @@
-from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
+from django.core.mail import send_mail
 from rest_framework.serializers import ModelSerializer
 
 from .models import User
 
 
 class UserSignupSerializer(ModelSerializer):
+    """Сериализатор создания пользователя."""
     class Meta:
         model = User
         fields = ['username', 'email']
@@ -23,3 +24,31 @@ class UserSignupSerializer(ModelSerializer):
             email=self.data.get('email'),
             password=make_password(password)
         )
+
+
+class UserSerializer(ModelSerializer):
+    """Сериализатор просмотра пользователя админом."""
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'email',
+            'bio',
+            'first_name',
+            'last_name',
+            'role'
+        ]
+
+
+class UserMeSerializer(ModelSerializer):
+    """Сериализатор просмотра своего профиля пользователем."""
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'email',
+            'bio',
+            'first_name',
+            'last_name',
+        ]
+        read_only_fields = ['username', 'email']
