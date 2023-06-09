@@ -2,7 +2,9 @@ from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from rest_framework.serializers import ModelSerializer
 
-from .models import User
+from rest_framework.validators import ValidationError
+
+from users.models import User
 
 
 class UserSignupSerializer(ModelSerializer):
@@ -38,6 +40,11 @@ class UserSerializer(ModelSerializer):
             'last_name',
             'role'
         ]
+
+    def validate_role(self, value):
+        if value == self.context['request'].user.role:
+            return ValidationError
+        return value
 
 
 class UserMeSerializer(ModelSerializer):
