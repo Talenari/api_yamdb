@@ -4,7 +4,7 @@ from rest_framework import permissions
 class CreatorOnlyPermission(permissions.BasePermission):
     """Пермишн для содателя объекта, модератора, администратора."""
 
-    def has_permission(self, request, view, obj):
+    def has_permission(self, request, view):
         return (
             request.method in permissions.SAFE_METHODS
             or request.user.is_authenticated
@@ -19,7 +19,7 @@ class CreatorOnlyPermission(permissions.BasePermission):
 class ModeratorPermission(permissions.BasePermission):
     """Пермишн для модератора, администратора."""
 
-    def has_permission(self, request, view, obj):
+    def has_permission(self, request, view):
         return (
             request.method in permissions.SAFE_METHODS
             or request.user.is_authenticated
@@ -33,7 +33,7 @@ class ModeratorPermission(permissions.BasePermission):
 class AdminPermission(permissions.BasePermission):
     """Пермишн для администратора."""
 
-    def has_permission(self, request, view, obj):
+    def has_permission(self, request, view):
         return (
             request.method in permissions.SAFE_METHODS
             or request.user.is_authenticated
