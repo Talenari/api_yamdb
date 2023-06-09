@@ -6,9 +6,11 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User
-from .pagination import UserPagination
-from .serializers import UserMeSerializer, UserSerializer, UserSignupSerializer
+from users.models import User
+from users.pagination import UserPagination
+from users.serializers import (UserMeSerializer,
+                               UserSerializer,
+                               UserSignupSerializer)
 
 
 class UserSignupView(CreateAPIView):
