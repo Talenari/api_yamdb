@@ -2,6 +2,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import get_object_or_404
 from rest_framework import permissions, status
+from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -60,6 +61,9 @@ class UserModelViewSet(ModelViewSet):
     lookup_field = 'username'
     pagination_class = UserPagination
     permission_classes = (AdminPermission,)
+    filter_backends = (SearchFilter,)
+    search_fields = ('username',)
+    http_method_names = ['get', 'post', 'delete', 'patch']
 
 
 class UserMeModelView(APIView):
@@ -74,7 +78,7 @@ class UserMeModelView(APIView):
     def patch(self, request):
         user = get_object_or_404(User, username=request.user.username)
         serializer = UserMeSerializer(user, data=request.data, partial=True)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.data)
