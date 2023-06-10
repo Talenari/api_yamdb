@@ -22,7 +22,6 @@ class CategoryViewSet(GenericMixinsSet):
     serializer_class = CategorySerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        CreatorOnlyPermission,
         permissions.IsAuthenticatedOrReadOnly,
     )
     lookup_field = 'slug'
@@ -36,7 +35,6 @@ class GenreViewSet(GenericMixinsSet):
     serializer_class = GenreSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        CreatorOnlyPermission,
         permissions.IsAuthenticatedOrReadOnly,
     )
     lookup_field = 'slug'
@@ -50,7 +48,6 @@ class TitleViewSet(ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        CreatorOnlyPermission,
         permissions.IsAuthenticatedOrReadOnly,
     )
     queryset = Title.objects.all()
