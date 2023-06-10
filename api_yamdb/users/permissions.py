@@ -20,10 +20,8 @@ class ModeratorPermission(permissions.BasePermission):
     """Пермишн для модератора, администратора."""
 
     def has_permission(self, request, view):
-        return (
-            request.method in permissions.SAFE_METHODS
-            or request.user.is_authenticated
-        )
+        return (request.user.role == 'moderator'
+                or request.user.role == 'admin')
 
     def has_object_permission(self, request, view, obj):
         return (request.user.role == 'moderator'
@@ -34,10 +32,7 @@ class AdminPermission(permissions.BasePermission):
     """Пермишн для администратора."""
 
     def has_permission(self, request, view):
-        return (
-            request.method in permissions.SAFE_METHODS
-            or request.user.is_authenticated
-        )
+        return (request.user.role == 'admin')
 
     def has_object_permission(self, request, view, obj):
         return (request.user.role == 'admin')
