@@ -1,10 +1,10 @@
 from django.urls import include, path
 from rest_framework.routers import SimpleRouter
 
-from .views import (UserMeModelView,
-                    UserModelViewSet,
-                    UserSignupView,
-                    UserTokenView)
+from users.views import (UserMeModelView,
+                         UserModelViewSet,
+                         UserSignupView,
+                         UserTokenView)
 
 
 router_users_v1 = SimpleRouter()

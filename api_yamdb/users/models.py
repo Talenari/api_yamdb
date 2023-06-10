@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from api_yamdb.settings import CHOICES
+from api_yamdb.settings import USER_ROLE_CHOICES
 
 
 class User(AbstractUser):
@@ -9,6 +9,6 @@ class User(AbstractUser):
     bio = models.TextField(blank=True, null=True)
     role = models.CharField(
         max_length=10,
-        choices=CHOICES,
+        choices=USER_ROLE_CHOICES,
         default='user'
     )

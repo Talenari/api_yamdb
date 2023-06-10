@@ -124,9 +124,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = ((BASE_DIR / 'static/'),)
 
-CHOICES = [
+USER_ROLE_CHOICES = [
     ('user', 'user'),
-    ('moderator', 'moderator')
+    ('moderator', 'moderator'),
+    ('admin', 'admin')
 ]
 
 REST_FRAMEWORK = {
