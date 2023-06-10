@@ -10,7 +10,9 @@ from api.serializers import (
     CategorySerializer, CommentSerializer, GenreSerializer,
     GetTitleSerializer, ReviewSerializer, TitleSerializer
 )
-from users.permissions import AdminPermission
+from users.permissions import (
+    AdminPermission, ModeratorPermission, CreatorOnlyPermission,
+)
 from reviews.models import Category, Comment, Genre, Review, Title
 
 
@@ -20,7 +22,8 @@ class CategoryViewSet(GenericMixinsSet):
     serializer_class = CategorySerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        CreatorOnlyPermission,
+        permissions.IsAuthenticatedOrReadOnly,
     )
     lookup_field = 'slug'
     search_fields = ('name', )
@@ -33,7 +36,8 @@ class GenreViewSet(GenericMixinsSet):
     serializer_class = GenreSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        CreatorOnlyPermission,
+        permissions.IsAuthenticatedOrReadOnly,
     )
     lookup_field = 'slug'
     search_fields = ('name', )
@@ -46,7 +50,8 @@ class TitleViewSet(ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        CreatorOnlyPermission,
+        permissions.IsAuthenticatedOrReadOnly,
     )
     queryset = Title.objects.all()
 
