@@ -1,5 +1,4 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import permissions
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.viewsets import ModelViewSet
@@ -10,8 +9,9 @@ from api.serializers import (
     CategorySerializer, CommentSerializer, GenreSerializer,
     GetTitleSerializer, ReviewSerializer, TitleSerializer
 )
-from users.permissions import AdminPermission
+
 from reviews.models import Category, Comment, Genre, Review, Title
+from users.permissions import IsAdminOrReadPermission
 
 
 class CategoryViewSet(GenericMixinsSet):
@@ -20,7 +20,7 @@ class CategoryViewSet(GenericMixinsSet):
     serializer_class = CategorySerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        IsAdminOrReadPermission,
     )
     lookup_field = 'slug'
     search_fields = ('name', )
@@ -33,7 +33,7 @@ class GenreViewSet(GenericMixinsSet):
     serializer_class = GenreSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        IsAdminOrReadPermission,
     )
     lookup_field = 'slug'
     search_fields = ('name', )
@@ -46,7 +46,7 @@ class TitleViewSet(ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        IsAdminOrReadPermission,
     )
     queryset = Title.objects.all()
 

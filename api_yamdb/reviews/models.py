@@ -45,7 +45,9 @@ class Title(models.Model):
         max_length=256
     )
     year = models.IntegerField()
-    description = models.TextField()
+    description = models.TextField(
+        'Описание', blank=True, null=True
+    )
     category = models.ForeignKey(
         Category,
         null=True,
