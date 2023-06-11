@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
@@ -60,21 +61,29 @@ class ReviewViewSet(ModelViewSet):
     """Вьюсет для Reviews."""
     serializer_class = ReviewSerializer
 
-    def get_queryset(self):
+    def get_title(self):
+        """Возвращает объект текущего произведения."""
         title_id = self.kwargs.get('title_id')
-        return Review.objects.filter(title=title_id)
+        return get_object_or_404(Title, pk=title_id)
+
+    def get_queryset(self):
+        return self.get_title().reviews.all()
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save(author=self.request.user, title=self.get_title())
 
 
 class CommentViewSet(ModelViewSet):
     """Вьюсет для Comments."""
     serializer_class = CommentSerializer
 
+    def get_review(self):
+        """Возвращает объект текущего отзыва."""
+        title_id = self.kwargs.get('title_id')
+        return get_object_or_404(Title, pk=title_id)
+
     def get_queryset(self):
-        review_id = self.kwargs.get('review_id')
-        return Comment.objects.filter(review=review_id)
+        return self.get_review().comments.all()
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save(author=self.request.user, review=self.get_review())
