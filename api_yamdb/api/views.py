@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions
@@ -49,7 +50,7 @@ class TitleViewSet(ModelViewSet):
     permission_classes = (
         AdminPermission, permissions.IsAuthenticatedOrReadOnly,
     )
-    queryset = Title.objects.all()
+    queryset = Title.objects.annotate(rating=Avg('reviews__score'))
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH'):
@@ -60,6 +61,7 @@ class TitleViewSet(ModelViewSet):
 class ReviewViewSet(ModelViewSet):
     """Вьюсет для Reviews."""
     serializer_class = ReviewSerializer
+    pagination_class = LimitOffsetPagination
 
     def get_title(self):
         """Возвращает объект текущего произведения."""
@@ -76,6 +78,7 @@ class ReviewViewSet(ModelViewSet):
 class CommentViewSet(ModelViewSet):
     """Вьюсет для Comments."""
     serializer_class = CommentSerializer
+    pagination_class = LimitOffsetPagination
 
     def get_review(self):
         """Возвращает объект текущего отзыва."""
