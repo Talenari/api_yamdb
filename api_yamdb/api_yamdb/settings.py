@@ -100,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -136,6 +136,9 @@ USER_ROLE_CHOICES = [
     ('moderator', 'moderator'),
     ('admin', 'admin')
 ]
+
+# constant for reviews > models.py
+STRING_LENGTH = 15
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
