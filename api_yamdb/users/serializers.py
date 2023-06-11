@@ -1,5 +1,4 @@
 from rest_framework.serializers import ModelSerializer
-from rest_framework.validators import ValidationError
 
 from users.models import User
 
@@ -24,14 +23,10 @@ class UserSerializer(ModelSerializer):
             'role'
         ]
 
-    def validate_role(self, value):
-        if value == self.context['request'].user.role:
-            return ValidationError
-        return value
-
 
 class UserMeSerializer(ModelSerializer):
     """Сериализатор просмотра своего профиля пользователем."""
+
     class Meta:
         model = User
         fields = [
@@ -40,5 +35,6 @@ class UserMeSerializer(ModelSerializer):
             'bio',
             'first_name',
             'last_name',
+            'role'
         ]
-        read_only_fields = ['username', 'email']
+        read_only_fields = ['role']
