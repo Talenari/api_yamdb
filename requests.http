@@ -1,15 +1,108 @@
-GET http://127.0.0.1:8000/api/v1/genres/
-# Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2MzQyODkzLCJpYXQiOjE2ODU5MTA4OTMsImp0aSI6ImNmMjRmZGZkNzEwZjQ0MmFhZWZkMDVjYWFjODIzYjllIiwidXNlcl9pZCI6Mn0.-eDG_4tokLjeWT4yUPhDPct13qynx0m0rtOA_HMjToE
+GET http://127.0.0.1:8000/api/v1/users/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE2MTAwLCJpYXQiOjE2ODYzMjk3MDAsImp0aSI6IjA5ZDYxMDk2MGY2ZTRhMjM5Y2VmMzMxMmFhOGZlOWRjIiwidXNlcl9pZCI6MTA2fQ.1GIiZkzpue2Y8cf37_UwxiinbNw7s-wOsx7xTdl8Txw
 
 ###
+
+POST http://127.0.0.1:8000/api/v1/auth/signup/
+Content-Type: application/json
+
+{
+  "username": "AdminTale",
+  "email": "admin.tale@mail.ru"
+}
+
+###
+
 
 POST http://127.0.0.1:8000/api/v1/auth/token/
 Content-Type: application/json
 
 {
-  "email": "ale.menchicova@mail.ru",
-  "username": "AdminYP",
-  "verification_code": "J6Bs3CkjQDGqMWLyts7AMGTbw7C3EBKR"
+  "username": "AdminTale",
+  "email": "admin.tale@mail.ru",
+  "confirmation_code": "vUA3YyUegumQv5XEEbYAmPKLQwvVVbxK"
 }
+
+###
+
+GET http://127.0.0.1:8000/api/v1/categories/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE2MTAwLCJpYXQiOjE2ODYzMjk3MDAsImp0aSI6IjA5ZDYxMDk2MGY2ZTRhMjM5Y2VmMzMxMmFhOGZlOWRjIiwidXNlcl9pZCI6MTA2fQ.1GIiZkzpue2Y8cf37_UwxiinbNw7s-wOsx7xTdl8Txw
+ 
+
+###
+
+POST http://127.0.0.1:8000/api/v1/categories/
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE2MTAwLCJpYXQiOjE2ODYzMjk3MDAsImp0aSI6IjA5ZDYxMDk2MGY2ZTRhMjM5Y2VmMzMxMmFhOGZlOWRjIiwidXNlcl9pZCI6MTA2fQ.1GIiZkzpue2Y8cf37_UwxiinbNw7s-wOsx7xTdl8Txw
+ 
+
+{
+  "name": "",
+  "slug": ""
+}
+
+###
+
+GET http://127.0.0.1:8000/api/v1/genres/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE2MTAwLCJpYXQiOjE2ODYzMjk3MDAsImp0aSI6IjA5ZDYxMDk2MGY2ZTRhMjM5Y2VmMzMxMmFhOGZlOWRjIiwidXNlcl9pZCI6MTA2fQ.1GIiZkzpue2Y8cf37_UwxiinbNw7s-wOsx7xTdl8Txw
+ 
+
+###
+
+POST http://127.0.0.1:8000/api/v1/genres/
+Content-Type: application/json
+# AdminTale
+# Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE2MTAwLCJpYXQiOjE2ODYzMjk3MDAsImp0aSI6IjA5ZDYxMDk2MGY2ZTRhMjM5Y2VmMzMxMmFhOGZlOWRjIiwidXNlcl9pZCI6MTA2fQ.1GIiZkzpue2Y8cf37_UwxiinbNw7s-wOsx7xTdl8Txw
+# Cherry
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE1OTI3LCJpYXQiOjE2ODYzMjk1MjcsImp0aSI6IjBkYmY0OTg1YWE0OTQxY2U4ZjZhZmNkODI2ZDAyMzc2IiwidXNlcl9pZCI6MTA1fQ.tb2nOPpthJnBAwx78TjefbuZqUOCW7Jlsyq7KjstY8s
+
+{
+  "name": "Концерт",
+  "slug": "concert"
+}
+
+###
+
+GET http://127.0.0.1:8000/api/v1/titles/
+# Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE2MTAwLCJpYXQiOjE2ODYzMjk3MDAsImp0aSI6IjA5ZDYxMDk2MGY2ZTRhMjM5Y2VmMzMxMmFhOGZlOWRjIiwidXNlcl9pZCI6MTA2fQ.1GIiZkzpue2Y8cf37_UwxiinbNw7s-wOsx7xTdl8Txw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE1OTI3LCJpYXQiOjE2ODYzMjk1MjcsImp0aSI6IjBkYmY0OTg1YWE0OTQxY2U4ZjZhZmNkODI2ZDAyMzc2IiwidXNlcl9pZCI6MTA1fQ.tb2nOPpthJnBAwx78TjefbuZqUOCW7Jlsyq7KjstY8s
+ 
+
+###
+
+POST http://127.0.0.1:8000/api/v1/titles/
+Content-Type: application/json
+# Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE2MTAwLCJpYXQiOjE2ODYzMjk3MDAsImp0aSI6IjA5ZDYxMDk2MGY2ZTRhMjM5Y2VmMzMxMmFhOGZlOWRjIiwidXNlcl9pZCI6MTA2fQ.1GIiZkzpue2Y8cf37_UwxiinbNw7s-wOsx7xTdl8Txw
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE1OTI3LCJpYXQiOjE2ODYzMjk1MjcsImp0aSI6IjBkYmY0OTg1YWE0OTQxY2U4ZjZhZmNkODI2ZDAyMzc2IiwidXNlcl9pZCI6MTA1fQ.tb2nOPpthJnBAwx78TjefbuZqUOCW7Jlsyq7KjstY8s
+
+{
+  "name": "Кабаре",
+  "year": "1972",
+  "description": "Американская певица Салли Боулз развлекает Берлин эпохи Веймарской республики на подмостках кабаре Kit-Kat club.",
+  "category": [
+    "movie"
+  ],
+  "genre": [
+    "musical"
+  ]
+  }
+
+###
+
+POST http://127.0.0.1:8000/api/v1/titles/
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NDE2MTAwLCJpYXQiOjE2ODYzMjk3MDAsImp0aSI6IjA5ZDYxMDk2MGY2ZTRhMjM5Y2VmMzMxMmFhOGZlOWRjIiwidXNlcl9pZCI6MTA2fQ.1GIiZkzpue2Y8cf37_UwxiinbNw7s-wOsx7xTdl8Txw
+
+{
+  "name": "Кабаре",
+  "year": "1972",
+  "description": "Американская певица Салли Боулз развлекает Берлин эпохи Веймарской республики на подмостках кабаре Kit-Kat club.",
+  "category": [
+    "movie"
+  ],
+  "genre": [
+    "musical"
+  ]
+  }
 
 ###

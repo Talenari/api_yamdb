@@ -1,3 +1,5 @@
+from django.db.models import Avg
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions
 from rest_framework.filters import SearchFilter
@@ -10,8 +12,9 @@ from api.serializers import (
     CategorySerializer, CommentSerializer, GenreSerializer,
     GetTitleSerializer, ReviewSerializer, TitleSerializer
 )
-from users.permissions import AdminPermission
+
 from reviews.models import Category, Comment, Genre, Review, Title
+from users.permissions import IsAdminOrReadPermission, CreatorOnlyPermission
 
 
 class CategoryViewSet(GenericMixinsSet):
@@ -20,7 +23,7 @@ class CategoryViewSet(GenericMixinsSet):
     serializer_class = CategorySerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        IsAdminOrReadPermission,
     )
     lookup_field = 'slug'
     search_fields = ('name', )
@@ -33,7 +36,7 @@ class GenreViewSet(GenericMixinsSet):
     serializer_class = GenreSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        IsAdminOrReadPermission,
     )
     lookup_field = 'slug'
     search_fields = ('name', )
@@ -46,9 +49,9 @@ class TitleViewSet(ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     pagination_class = LimitOffsetPagination
     permission_classes = (
-        AdminPermission, permissions.IsAuthenticatedOrReadOnly,
+        IsAdminOrReadPermission,
     )
-    queryset = Title.objects.all()
+    queryset = Title.objects.annotate(rating=Avg('reviews__score'))
 
     def get_serializer_class(self):
         if self.request.method in ('POST', 'PATCH'):
@@ -59,22 +62,38 @@ class TitleViewSet(ModelViewSet):
 class ReviewViewSet(ModelViewSet):
     """Вьюсет для Reviews."""
     serializer_class = ReviewSerializer
+    pagination_class = LimitOffsetPagination
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly, CreatorOnlyPermission
+    )
+
+    def get_title(self):
+        """Возвращает объект текущего произведения."""
+        title_id = self.kwargs.get('title_id')
+        return get_object_or_404(Title, pk=title_id)
 
     def get_queryset(self):
-        title_id = self.kwargs.get('title_id')
-        return Review.objects.filter(title=title_id)
+        return self.get_title().reviews.all()
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save(author=self.request.user, title=self.get_title())
 
 
 class CommentViewSet(ModelViewSet):
     """Вьюсет для Comments."""
     serializer_class = CommentSerializer
+    pagination_class = LimitOffsetPagination
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly, CreatorOnlyPermission
+    )
+
+    def get_review(self):
+        """Возвращает объект текущего отзыва."""
+        review_id = self.kwargs.get('review_id')
+        return get_object_or_404(Review, pk=review_id)
 
     def get_queryset(self):
-        review_id = self.kwargs.get('review_id')
-        return Comment.objects.filter(review=review_id)
+        return self.get_review().comments.all()
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save(author=self.request.user, review=self.get_review())
