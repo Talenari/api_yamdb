@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from reviews.constants import STRING_LENGTH
+from api_yamdb.settings import STRING_LENGTH
 
 User = get_user_model()
 
@@ -17,6 +17,8 @@ class Category(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
         ordering = ('name',)
 
     def __str__(self):
@@ -33,6 +35,8 @@ class Genre(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'
         ordering = ('name',)
 
     def __str__(self):
@@ -60,6 +64,8 @@ class Title(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Произведение'
+        verbose_name_plural = 'Произведения'
         ordering = ('name',)
 
     def __str__(self):

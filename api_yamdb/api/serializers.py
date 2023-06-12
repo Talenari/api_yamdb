@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
-from rest_framework.validators import UniqueTogetherValidator
 
 from reviews.models import Category, Comment, Genre, Review, Title
 
@@ -54,7 +53,8 @@ class GetTitleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Title
-        fields = ('id', 'name', 'year', 'description', 'category', 'genre', 'rating')
+        fields = ('id', 'name', 'year', 'description', 'category', 'genre',
+                  'rating')
         read_only_fields = (
             'id', 'name', 'year', 'rating', 'description', 'genre', 'category'
         )
