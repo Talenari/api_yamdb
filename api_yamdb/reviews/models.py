@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from api_yamdb.settings import STRING_LENGTH
+from django.conf import settings
 
 User = get_user_model()
 
@@ -22,7 +22,7 @@ class Category(models.Model):
         ordering = ('name',)
 
     def __str__(self):
-        return self.name[:STRING_LENGTH]
+        return self.name[:settings.STRING_LENGTH]
 
 
 class Genre(models.Model):
@@ -40,7 +40,7 @@ class Genre(models.Model):
         ordering = ('name',)
 
     def __str__(self):
-        return self.name[:STRING_LENGTH]
+        return self.name[:settings.STRING_LENGTH]
 
 
 class Title(models.Model):
@@ -48,7 +48,7 @@ class Title(models.Model):
     name = models.CharField(
         max_length=256
     )
-    year = models.IntegerField()
+    year = models.PositiveSmallIntegerField(db_index=True)
     description = models.TextField(
         'Описание', blank=True, null=True
     )
@@ -69,7 +69,7 @@ class Title(models.Model):
         ordering = ('name',)
 
     def __str__(self):
-        return self.name[:STRING_LENGTH]
+        return self.name[:settings.STRING_LENGTH]
 
 
 class Review(models.Model):
