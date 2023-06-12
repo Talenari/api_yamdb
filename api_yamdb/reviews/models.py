@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from reviews.constants import STRING_LENGTH
+from api_yamdb.settings import STRING_LENGTH
 
 User = get_user_model()
 
