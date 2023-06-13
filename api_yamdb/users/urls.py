@@ -3,16 +3,20 @@ from rest_framework.routers import SimpleRouter
 
 from users.views import (UserMeModelView,
                          UserModelViewSet,
-                         UserSignupView,
-                         UserTokenView)
+                         usersignup,
+                         usergettoken)
 
 
 router_users_v1 = SimpleRouter()
 router_users_v1.register('users', UserModelViewSet)
 
+auth_patterns = [
+    path('signup/', usersignup),
+    path('token/', usergettoken),
+]
+
 urlpatterns = [
-    path('auth/signup/', UserSignupView.as_view()),
-    path('auth/token/', UserTokenView.as_view()),
+    path('auth/', include(auth_patterns)),
     path('users/me/', UserMeModelView.as_view()),
     path('', include(router_users_v1.urls)),
 ]
