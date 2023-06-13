@@ -23,6 +23,10 @@ MAIL = 'example@example.com'
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
+USERNAME_LENGTH = 150
+
+EMAIL_LENGTH = 254
+
 # Application definition
 
 INSTALLED_APPS = [

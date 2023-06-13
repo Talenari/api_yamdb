@@ -1,5 +1,6 @@
 from re import match
 
+from django.conf import settings
 from rest_framework.serializers import ModelSerializer
 from rest_framework.validators import ValidationError
 from rest_framework.serializers import CharField, EmailField
@@ -17,8 +18,8 @@ class UserSignupSerializer(ModelSerializer):
         fields = ['username', 'email']
 
     def validate_username(self, value):
-        if len(value) > 150:
-            raise ValidationError('username больше 254 символов')
+        if len(value) > settings.USERNAME_LENGTH:
+            raise ValidationError('длина username больше 150 символов')
         if not match(r'^[\w.@+-]+\Z', value):
             raise ValidationError('username введен неверно')
         if value == 'me':
@@ -26,7 +27,7 @@ class UserSignupSerializer(ModelSerializer):
         return value
 
     def validate_email(self, value):
-        if len(value) > 254:
+        if len(value) > settings.EMAIL_LENGTH:
             raise ValidationError('email больше 254 символов')
         return value
 

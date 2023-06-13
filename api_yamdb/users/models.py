@@ -9,15 +9,17 @@ class User(AbstractUser):
         max_length=150,
         blank=False,
         null=False,
-        unique=True
+        unique=True,
+        verbose_name='электронная почта'
     )
-    bio = models.TextField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True, verbose_name='биография')
     role = models.CharField(
         max_length=10,
         choices=settings.USER_ROLE_CHOICES,
-        default=settings.USER
+        default=settings.USER,
+        verbose_name='роль'
     )
-    confirmation_code = models.TextField()
+    confirmation_code = models.TextField(verbose_name='код подтверждения')
 
     @property
     def is_admin(self):
