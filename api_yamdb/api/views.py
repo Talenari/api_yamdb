@@ -13,7 +13,7 @@ from api.serializers import (
     GetTitleSerializer, ReviewSerializer, TitleSerializer
 )
 
-from reviews.models import Category, Comment, Genre, Review, Title
+from reviews.models import Category, Genre, Review, Title
 from users.permissions import IsAdminOrReadPermission, CreatorOnlyPermission
 
 
@@ -90,7 +90,8 @@ class CommentViewSet(ModelViewSet):
     def get_review(self):
         """Возвращает объект текущего отзыва."""
         review_id = self.kwargs.get('review_id')
-        return get_object_or_404(Review, pk=review_id)
+        title_id = self.kwargs.get('title_id')
+        return get_object_or_404(Review, pk=review_id, title_id=title_id)
 
     def get_queryset(self):
         return self.get_review().comments.all()

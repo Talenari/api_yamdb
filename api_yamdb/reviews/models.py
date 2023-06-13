@@ -1,8 +1,9 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-from reviews.constants import STRING_LENGTH
+
 
 User = get_user_model()
 
@@ -17,10 +18,12 @@ class Category(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
         ordering = ('name',)
 
     def __str__(self):
-        return self.name[:STRING_LENGTH]
+        return self.name[:settings.STRING_LENGTH]
 
 
 class Genre(models.Model):
@@ -33,10 +36,12 @@ class Genre(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'
         ordering = ('name',)
 
     def __str__(self):
-        return self.name[:STRING_LENGTH]
+        return self.name[:settings.STRING_LENGTH]
 
 
 class Title(models.Model):
@@ -44,7 +49,7 @@ class Title(models.Model):
     name = models.CharField(
         max_length=256
     )
-    year = models.IntegerField()
+    year = models.PositiveSmallIntegerField(db_index=True)
     description = models.TextField(
         'Описание', blank=True, null=True
     )
@@ -60,10 +65,12 @@ class Title(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Произведение'
+        verbose_name_plural = 'Произведения'
         ordering = ('name',)
 
     def __str__(self):
-        return self.name[:STRING_LENGTH]
+        return self.name[:settings.STRING_LENGTH]
 
 
 class Review(models.Model):
@@ -80,8 +87,9 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         related_name='reviews'
     )
-    score = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(10)],
+    score = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(settings.MIN_SCR),
+                    MaxValueValidator(settings.MAX_SCR)],
         error_messages={'validators': 'Оценка от 1 до 10'},
     )
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
@@ -97,7 +105,7 @@ class Review(models.Model):
             )]
 
     def __str__(self):
-        return self.text
+        return self.text[:STRING_LENGTH]
 
 
 class Comment(models.Model):
@@ -121,4 +129,4 @@ class Comment(models.Model):
         ordering = ('pub_date',)
 
     def __str__(self):
-        return self.text
+        return self.text[:STRING_LENGTH]

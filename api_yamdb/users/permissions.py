@@ -15,6 +15,7 @@ class CreatorOnlyPermission(permissions.BasePermission):
         )
 
 
+
 class AdminPermission(permissions.BasePermission):
     """Пермишн для администратора."""
 
@@ -29,7 +30,7 @@ class AdminPermission(permissions.BasePermission):
 
 
 class IsAdminOrReadPermission(permissions.BasePermission):
-    """Админ вносить изменения."""
+    """Админ может вносить изменения."""
 
     def has_permission(self, request, view):
         return (

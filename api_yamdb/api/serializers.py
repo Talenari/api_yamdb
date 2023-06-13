@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
-from rest_framework.validators import UniqueTogetherValidator
 
 from reviews.models import Category, Comment, Genre, Review, Title
 
@@ -54,7 +53,8 @@ class GetTitleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Title
-        fields = ('id', 'name', 'year', 'description', 'category', 'genre', 'rating')
+        fields = ('id', 'name', 'year', 'description', 'category', 'genre',
+                  'rating')
         read_only_fields = (
             'id', 'name', 'year', 'rating', 'description', 'genre', 'category'
         )
@@ -76,7 +76,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         title = get_object_or_404(Title, pk=title_id)
         if (
             request.method == 'POST'
-            and Review.objects.filter(title=title, author=author).exists()
+            and author.reviews.exists()
+            and title.reviews.exists()
         ):
             raise ValidationError('Можно оставить только один отзыв')
         return data
