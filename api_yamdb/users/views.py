@@ -48,9 +48,8 @@ class UserMeModelView(APIView):
             data=request.data,
             partial=True
         )
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(serializer.data)
 
 
@@ -79,7 +78,7 @@ def usersignup(request):
     serializer = UserSignupSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     try:
-        user, get_status = User.objects.get_or_create(
+        user, _ = User.objects.get_or_create(
             username=request.data['username'],
             email=request.data['email']
         )
