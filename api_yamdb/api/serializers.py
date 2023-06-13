@@ -76,7 +76,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         title = get_object_or_404(Title, pk=title_id)
         if (
             request.method == 'POST'
-            and Review.objects.filter(title=title, author=author).exists()
+            and author.reviews.exists()
+            and title.reviews.exists()
         ):
             raise ValidationError('Можно оставить только один отзыв')
         return data

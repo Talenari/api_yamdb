@@ -139,6 +139,8 @@ USER_ROLE_CHOICES = [
 
 # for reviews > models.py
 STRING_LENGTH = 15
+MIN_SCR = 1
+MAX_SCR = 10
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=3),
