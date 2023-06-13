@@ -15,7 +15,6 @@ class CreatorOnlyPermission(permissions.BasePermission):
         )
 
 
-
 class AdminPermission(permissions.BasePermission):
     """Пермишн для администратора."""
 

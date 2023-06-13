@@ -104,7 +104,7 @@ class Review(models.Model):
             )]
 
     def __str__(self):
-        return self.text[:STRING_LENGTH]
+        return self.text[:settings.STRING_LENGTH]
 
 
 class Comment(models.Model):
@@ -128,4 +128,4 @@ class Comment(models.Model):
         ordering = ('pub_date',)
 
     def __str__(self):
-        return self.text[:STRING_LENGTH]
+        return self.text[:settings.STRING_LENGTH]
