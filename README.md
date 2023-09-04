@@ -96,7 +96,7 @@ https://github.com/KhahaDu - Дмитрий Хайдуков
 ```
 
 ```
-https://github.com/Talenari - Алена Меньчикова
+https://github.com/Talenari - Alena ♥ Tale
 Произведения и категории
 ```
 
